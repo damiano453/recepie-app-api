@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+#import mongoengine
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -76,8 +77,21 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_NAME'),
+        'HOST': os.environ.get('DB_HOST'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASS'),
+        #'CLIENT': {
+            #'host': 'host-name or ip address',
+            #'port': 27017,
+            #'username': 'db-username',
+            #'password': 'password',
+            #'authSource': 'db-name',
+            #'authMechanism': 'SCRAM-SHA-1'
+        #}
     }
 }
 
@@ -121,3 +135,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'core.User'
+'''
+mongoengine.connect(
+    db=os.environ.get('DB_NAME'),
+    username=os.environ.get('DB_USER'),
+    password=os.environ.get('DB_PASS'),
+    host=os.environ.get('DB_HOST'),
+    port=27017
+)
+'''
